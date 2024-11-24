@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Provider } from 'react-redux';
+import { store } from './components/redux/state/store';
+import { TodoListPage as ReduxTodoListPage } from './components/redux/TodoListPage';
+import { TodoListPage as ZustandTodoListPage } from './components/zustand/TodoListPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { StarPage } from './components/star-system/StarPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={'/redux/todo-list'}
+          element={
+            <Provider store={store}>
+              <ReduxTodoListPage />
+            </Provider>
+          }
+        />
+        <Route path={'/zustand/todo-list'} element={<ZustandTodoListPage />} />
+        <Route path={'/star-system'} element={<StarPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
